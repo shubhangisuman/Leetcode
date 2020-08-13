@@ -1,42 +1,14 @@
 class Solution {
-    public int[][] generateMatrix(int num) {
-        int[][] matrix = new int[num][num];
-        int m = num;
-        int n = num;
-        int left = 0, right = n-1;
-        int top = 0, bottom = m-1;
-        int c=1;
-        while(true){
-            if(left>right)
-                break;
-            for(int i=left;i<=right;i++){
-                matrix[top][i]=c;
-                c++;
+    public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 || j==0)
+                    dp[i][j] = 1;
+                else
+                    dp[i][j] = dp[i-1][j]+dp[i][j-1];
             }
-            top++;
-            if(top>bottom)
-                break;
-            for(int i=top;i<=bottom;i++){
-                matrix[i][right]=c;
-                c++;
-            }
-            right--;
-            if(left>right)
-                break;
-            for(int i=right;i>=left;i--){
-                matrix[bottom][i]=c;
-                c++;
-            }
-            bottom--;
-            if(top>bottom)
-                break;
-            for(int i=bottom;i>=top;i--){
-                matrix[i][left]=c;
-                c++;
-            }
-            left++;
-
         }
-        return matrix;
+        return dp[m-1][n-1];
     }
 }
